@@ -7,7 +7,7 @@ package com.curso.pokemoncasigo;
 import java.util.Random;
 
 /**
- *
+ * Class that defines a Pokemon
  * @author pgervill
  */
 public class Pokemon {
@@ -22,7 +22,12 @@ public class Pokemon {
     private boolean legendary;
     
     private Random r = new Random();
-    //Pokemon salvaje
+    /**
+     * Constructor for the Pokemons.
+     * @param number Pokemon number.
+     * @param name Pokemon name.
+     * @param type Pokemon type.
+     */
     public Pokemon(int number, String name, Type type){
         this.number = number;
         this.name = name;
@@ -34,18 +39,33 @@ public class Pokemon {
         this.prepared = true;
         this.power = 1;
     }
-    
+    /**
+     * Constructor for the Pokemons that can evolve to other.
+     * @param number Pokemon number.
+     * @param name Pokemon name.
+     * @param type Pokemon type.
+     * @param evolveTo Pokemon to evolve.
+     */
     public Pokemon(int number, String name, Type type, int evolveTo){
         this(number, name, type);
         this.evolveTo = evolveTo;
     }
-    
+    /**
+     * Constructor for the legendary Pokemons.
+     * @param number Pokemon number.
+     * @param name Pokemon name.
+     * @param type Pokemon type.
+     * @param legendary true for set the Pokemon legendary.
+     */
     public Pokemon(int number, String name, Type type, boolean legendary){
         this(number, name, type);
         this.legendary = legendary;
         this.power *= 2;
     }
-    
+    /**
+     * Copy constructor for a Pokemon.
+     * @param p Pokemon to copy.
+     */
     public Pokemon(Pokemon p){
         this.number = p.number;
         this.name = p.name;
@@ -57,13 +77,20 @@ public class Pokemon {
         this.evolved = p.evolved;
         this.legendary = p.legendary;
     }
-    
+    /**
+     * Increases the level in one and the power in one and a bit. 
+     * @return this Pokemon.
+     */
     public Pokemon train(){
         ++level;
         power += 1 + r.nextFloat();
         return this;
     }
-    
+    /**
+     * Fight with another Pokemon.
+     * @param challenger Pokemon
+     * @return 
+     */
     public boolean fight(Pokemon challenger){
         boolean win = false;
         float myPower = this.power;
@@ -102,7 +129,7 @@ public class Pokemon {
         return canEvolve;
     }
     /**
-     * Evolve this Pokemon to his next evolution
+     * Evolve this Pokemon to his next evolution.
      * @param evolution Pokemon to evolve.
      * @return this Pokemon Evolved.
      */
@@ -114,7 +141,12 @@ public class Pokemon {
         this.evolved++;
         return this;
     }
-    
+    /**
+     * Check the advantage between types.
+     * @param a type of the first pokemon.
+     * @param b type of the second Pokemon.
+     * @return the advantage of the a type opposite the type b.
+     */
     public int checkTypeAdvantage(Type a, Type b){
         int winnerType = 0;//1= a advantage, -1= b advantage, 0= nothing.
         switch (a){
@@ -208,6 +240,14 @@ public class Pokemon {
         }
         return winnerType;
     }
+    /**
+     * Set the level 
+     * @param level 
+     */
+    public void setLevelPower(int level){
+        this.level = level;
+        this.power = level + r.nextFloat(level);
+    }
     
     public String getName(){
         return name;
@@ -239,11 +279,6 @@ public class Pokemon {
     
     public void prepare(){
         prepared = true;
-    }
-    
-    public void setLevelPower(int level){
-        this.level = level;
-        this.power = level + r.nextFloat(level);
     }
     
     public int getLevel(){

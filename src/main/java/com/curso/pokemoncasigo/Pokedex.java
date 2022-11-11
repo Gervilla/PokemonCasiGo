@@ -9,7 +9,7 @@ import java.util.HashSet;
 import java.util.Random;
 
 /**
- *
+ * Includes a list of every Pokemon and a empty collection for the player to fill if.
  * @author pgervill
  */
 public class Pokedex {
@@ -19,7 +19,9 @@ public class Pokedex {
     
     private Random r = new Random();
     private HashSet<Pokemon> collection = new HashSet<>();
-    
+    /**
+     * Empty constructor. Initialize the complete list of Pokemon.
+     */
     private Pokedex(){
         list.add(new Pokemon(1, "Bulbasaur", Type.GRASS, 2));
         list.add(new Pokemon(2, "Ivysaur", Type.GRASS, 3));
@@ -282,11 +284,18 @@ public class Pokedex {
     public Pokemon getRandomPokemon(int level){
         return getPokemon(r.nextInt(1, 156), level);
     }
-    
+    /**
+     * Add the Pokemon spotted by the player to is collection.
+     * @param newPokemon Pokemn spotted.
+     * @return if the spotted Pokemon is new.
+     */
     public boolean newSpottedPokemon(Pokemon newPokemon){
         return collection.add(newPokemon);
     }
-    
+    /**
+     * Check if the player has completed is collection of Pokemon.
+     * @return if the player has won.
+     */
     public boolean youWin(){
         return collection.size() == list.size();
     }
